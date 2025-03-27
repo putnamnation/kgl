@@ -7,10 +7,10 @@ repositories {
     mavenCentral()
 }
 
-version = currentVersion
+//version = currentVersion
 
 dependencies {
-    implementation(libs.org.jetbrains.kotlin.stdlib)
+    implementation(libs.kotlin.stdlib)
 
     implementation(libs.org.lwjgl)
     implementation(libs.org.lwjgl.assimp)
@@ -19,7 +19,7 @@ dependencies {
     implementation(libs.org.lwjgl.opengl)
     implementation(libs.org.lwjgl.stb)
 
-    implementation(project(":kgl"))
+    implementation(projects.kgl.kgl)
 }
 
 java {
@@ -27,15 +27,15 @@ java {
 }
 
 publishing {
-    addRepositoryIfPresent(project)
-
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.danielgergely.kgl"
-            artifactId = "kgl-lwjgl"
-            version = currentVersion
-
-            from(components["java"])
-        }
-    }
+//    addRepositoryIfPresent(project)
+//
+//    publications {
+//        create<MavenPublication>("maven") {
+//            groupId = "com.danielgergely.kgl"
+//            artifactId = "kgl-lwjgl"
+//            version = currentVersion
+//
+//            from(components["java"])
+//        }
+//    }
 }

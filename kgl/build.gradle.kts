@@ -8,7 +8,7 @@ repositories {
 }
 
 group = "com.danielgergely.kgl"
-version = currentVersion
+//version = currentVersion
 
 kotlin {
     jvm()
@@ -98,5 +98,5 @@ kotlin {
 fun isMacOs() = org.gradle.internal.os.OperatingSystem.current().isMacOsX
 
 publishing {
-    addRepositoryIfPresent(project)
+//    addRepositoryIfPresent(project)
 }

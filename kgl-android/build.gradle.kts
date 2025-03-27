@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace = "com.danielgergely.kgl"
+
     compileSdk = 33
 
     defaultConfig {
@@ -34,23 +36,24 @@ android {
 }
 
 dependencies {
-    implementation(libs.org.jetbrains.kotlin.stdlib)
+    implementation(libs.kotlin.stdlib)
 
-    implementation(project(":kgl"))
+//    implementation(project(":kgl"))
+    implementation(projects.kgl.kgl)
 }
 
 afterEvaluate {
     publishing {
-        addRepositoryIfPresent(project)
-
-        publications {
-            create<MavenPublication>("maven") {
-                from(project.components["release"])
-
-                groupId = "com.danielgergely.kgl"
-                artifactId = "kgl-android"
-                version = currentVersion
-            }
-        }
+//        addRepositoryIfPresent(project)
+//
+//        publications {
+//            create<MavenPublication>("maven") {
+//                from(project.components["release"])
+//
+//                groupId = "com.danielgergely.kgl"
+//                artifactId = "kgl-android"
+//                version = currentVersion
+//            }
+//        }
     }
 }
