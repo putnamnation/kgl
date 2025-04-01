@@ -121,4 +121,6 @@ public interface Kgl {
     public fun renderbufferStorage(target: Int, internalformat: Int, width: Int, height: Int)
 
     public fun readPixels(x: Int, y: Int, width: Int, height: Int, format: Int, type: Int, buffer: Buffer)
+
+    public fun lineWidth(width: Float)
 }

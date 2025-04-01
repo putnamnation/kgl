@@ -345,3 +345,5 @@ public const val GL_RG32UI: Int = 0x823C
 public const val GL_RG: Int = 0x8227
 public const val GL_COMPRESSED_RED: Int = 0x8225
 public const val GL_COMPRESSED_RG: Int = 0x8226
+
+public const val GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL: Int = TODO("real number")
