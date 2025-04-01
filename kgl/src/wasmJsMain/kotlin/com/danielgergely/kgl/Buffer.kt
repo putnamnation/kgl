@@ -1,84 +1,64 @@
 package com.danielgergely.kgl
 
-import kotlinx.cinterop.CValuesRef
-import kotlinx.cinterop.refTo
-import platform.posix.free
-
+import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.toFloat32Array
+import org.khronos.webgl.toInt32Array
+import org.khronos.webgl.toInt8Array
 
 public actual abstract class Buffer {
-    public abstract fun ref(): CValuesRef<*>
-
-    internal open fun dispose() {}
-}
-
-public class PointerBuffer(
-    private val pointer: CValuesRef<*>,
-    private val freeOnDispose: Boolean
-) : Buffer() {
-
-    override fun ref(): CValuesRef<*> {
-        return pointer
-    }
-
-    override fun dispose() {
-        if (freeOnDispose) {
-            free(pointer)
-        }
-    }
+    public abstract fun getWasmJsBufferWithOffset(): ArrayBufferView
 }
 
 public actual class FloatBuffer actual constructor(buffer: FloatArray) : Buffer() {
-    public actual constructor(buffer: Array<Float>) : this(buffer.toFloatArray())
-    public actual constructor(size: Int) : this(FloatArray(size))
+    private val floatBuffer: FloatArray = buffer.copyOf()
 
-    private val buffer: FloatArray = buffer.copyOf()
+    public actual constructor(buffer: Array<Float>) : this(buffer.toFloatArray())
+
+    public actual constructor(size: Int) : this(FloatArray(size))
 
     public actual var position: Int = 0
 
     public actual fun put(f: Float) {
-        buffer[position++] = f
+        floatBuffer[position++] = f
     }
 
     public actual fun put(floatArray: FloatArray) {
-        floatArray.copyInto(buffer, position)
-        position += floatArray.size
+        put(floatArray, 0, floatArray.size)
     }
 
     public actual fun put(floatArray: FloatArray, offset: Int, length: Int) {
-        floatArray.copyInto(buffer, position, offset, offset + length)
+        floatArray.copyInto(floatBuffer, position, offset, offset + length)
         position += length
     }
 
     public actual operator fun set(pos: Int, f: Float) {
-        buffer[pos] = f
+        floatBuffer[pos] = f
     }
 
-    public actual fun get(): Float {
-        return buffer[position]
-    }
+    public actual fun get(): Float = floatBuffer[position]
 
     public actual fun get(floatArray: FloatArray) {
         get(floatArray, 0, floatArray.size)
     }
 
     public actual fun get(floatArray: FloatArray, offset: Int, length: Int) {
-        buffer.copyInto(floatArray, offset, position, position + length)
+        floatBuffer.copyInto(floatArray, offset, position, position + length)
     }
 
-    public actual operator fun get(pos: Int): Float {
-        return buffer[pos]
-    }
+    public actual operator fun get(pos: Int): Float = floatBuffer[pos]
 
-    override fun ref(): CValuesRef<*> {
-        return buffer.refTo(position)
+    override fun getWasmJsBufferWithOffset(): ArrayBufferView {
+        return floatBuffer.sliceArray(position..floatBuffer.size).toFloat32Array()
     }
 }
 
 public actual class ByteBuffer actual constructor(buffer: ByteArray) : Buffer() {
+    private val buffer: ByteArray = buffer.copyOf()
+
     public actual constructor(buffer: Array<Byte>) : this(buffer.toByteArray())
+
     public actual constructor(size: Int) : this(ByteArray(size))
 
-    private val buffer: ByteArray = buffer.copyOf()
     public actual var position: Int = 0
 
     public actual fun put(b: Byte) {
@@ -115,8 +95,8 @@ public actual class ByteBuffer actual constructor(buffer: ByteArray) : Buffer() 
         return buffer[pos]
     }
 
-    override fun ref(): CValuesRef<*> {
-        return buffer.refTo(position) //TODO test
+    override fun getWasmJsBufferWithOffset(): ArrayBufferView {
+        return buffer.sliceArray(position..buffer.size).toInt8Array()
     }
 }
 
@@ -162,7 +142,7 @@ public actual class IntBuffer public actual constructor(buffer: IntArray) : Buff
         return buffer[pos]
     }
 
-    override fun ref(): CValuesRef<*> {
-        return buffer.refTo(position)
+    override fun getWasmJsBufferWithOffset(): ArrayBufferView {
+        return buffer.sliceArray(position..buffer.size).toInt32Array()
     }
 }

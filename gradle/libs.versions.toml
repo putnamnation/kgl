@@ -1,7 +1,7 @@
 [versions]
 android-gradle-plugin = "7.3.1"
 jogl = "2.3.2"
-kotlin = "1.9.21"
+kotlin = "2.1.10"
 lwjgl = "3.3.0"
 
 [libraries]
@@ -16,3 +16,4 @@ org-lwjgl-openal = { module = "org.lwjgl:lwjgl-openal", version.ref = "lwjgl" }
 org-lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 org-lwjgl-stb = { module = "org.lwjgl:lwjgl-stb", version.ref = "lwjgl" }
 org-lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
+kotlinx-browser = { group = "org.jetbrains.kotlinx", name = "kotlinx-browser", version = "0.3" }

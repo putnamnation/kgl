@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     id("maven-publish")
@@ -19,6 +21,13 @@ kotlin {
         }
     }
 
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            testTask {} // To run tests with browser.
+        }
+    }
+
     linuxX64()
     mingwX64()
 
@@ -34,6 +43,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(kotlin("stdlib"))
                 implementation(kotlin("stdlib-common"))
             }
         }
@@ -64,7 +74,17 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
-
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-wasm-js"))
+                implementation(libs.kotlinx.browser)
+            }
+        }
+//        val wasmJsTest by getting {
+//            dependencies {
+//                implementation(kotlin("test-js"))
+//            }
+//        }
         val linuxX64Main by getting { }
         val mingwX64Main by getting { }
 
