@@ -580,4 +580,11 @@ public class DebugKgl(
         runAfter("readPixels")
         return ret
     }
+
+    override fun lineWidth(width: Float) {
+        runBefore("lineWidth")
+        val ret = kgl.lineWidth(width)
+        runAfter("lineWidth")
+        return ret
+    }
 }

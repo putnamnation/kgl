@@ -309,6 +309,10 @@ class KglJogl(private val gl: GL) : Kgl {
             gl.glReadPixels(x, y, width, height, format, type, javaBuffer)
         }
     }
+
+    override fun lineWidth(width: Float) {
+        gl.glLineWidth(width)
+    }
 }
 
 fun imageToByteBuffer(image: BufferedImage): ByteBuffer {

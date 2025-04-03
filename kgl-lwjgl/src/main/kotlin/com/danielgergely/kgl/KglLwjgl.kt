@@ -401,4 +401,7 @@ object KglLwjgl : Kgl {
         }
     }
 
+    override fun lineWidth(width: Float) {
+        GL.glLineWidth(width)
+    }
 }

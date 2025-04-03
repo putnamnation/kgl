@@ -260,6 +260,10 @@ object KglAndroid : Kgl {
             GL.glReadPixels(x, y, width, height, format, type, javaBuffer)
         }
     }
+
+    override fun lineWidth(width: Float) {
+        GL.glLineWidth(width)
+    }
 }
 
 private fun FloatArray.vSize(vecSize: Int): Int {

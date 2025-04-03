@@ -247,4 +247,8 @@ public class KglWasmJs(private val gl: WebGLRenderingContext) : Kgl {
     ) {
         gl.readPixels(x, y, width, height, format, type, buffer.getWasmJsBufferWithOffset())
     }
+
+    override fun lineWidth(width: Float) {
+        gl.lineWidth(width)
+    }
 }
