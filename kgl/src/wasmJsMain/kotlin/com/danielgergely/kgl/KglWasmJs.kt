@@ -147,7 +147,7 @@ public class KglWasmJs(private val gl: WebGLRenderingContext) : Kgl {
         resource: TextureResource
     ): Unit = gl.texImage2D(target, level, internalFormat, GL_RGBA, GL_UNSIGNED_BYTE, resource.image)
 
-    public override fun texImage2D(
+    override fun texImage2D(
         target: Int,
         level: Int,
         internalFormat: Int,
@@ -156,7 +156,7 @@ public class KglWasmJs(private val gl: WebGLRenderingContext) : Kgl {
         border: Int,
         format: Int,
         type: Int,
-        buffer: Buffer
+        buffer: Buffer?
     ) {
         gl.texImage2D(
             target,
@@ -167,10 +167,9 @@ public class KglWasmJs(private val gl: WebGLRenderingContext) : Kgl {
             border,
             format,
             type,
-            buffer.getWasmJsBufferWithOffset()
+            buffer?.getWasmJsBufferWithOffset()
         )
     }
-
 
     public override fun activeTexture(texture: Int): Unit = gl.activeTexture(texture)
     public override fun bindTexture(target: Int, texture: Texture?): Unit =

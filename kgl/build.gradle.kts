@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.all
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -13,7 +14,14 @@ group = "com.danielgergely.kgl"
 //version = currentVersion
 
 kotlin {
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+        }
+//        compilations.all {
+//
+//        }
+    }
 
     js {
         browser {

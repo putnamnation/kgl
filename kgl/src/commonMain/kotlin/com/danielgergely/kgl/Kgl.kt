@@ -82,7 +82,7 @@ public interface Kgl {
         border: Int,
         format: Int,
         type: Int,
-        buffer: Buffer
+        buffer: Buffer?
     )
 
     public fun activeTexture(texture: Int)
