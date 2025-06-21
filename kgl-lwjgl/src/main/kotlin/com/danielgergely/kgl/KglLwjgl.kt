@@ -203,72 +203,87 @@ object KglLwjgl : Kgl {
         border: Int,
         format: Int,
         type: Int,
-        buffer: Buffer
+        buffer: Buffer?
     ) {
-        buffer.withJavaBuffer { javaBuffer ->
-            when (javaBuffer) {
-                is ByteBuffer -> GL.glTexImage2D(
-                    target,
-                    level,
-                    internalFormat,
-                    width,
-                    height,
-                    border,
-                    format,
-                    type,
-                    javaBuffer
-                )
+        if (buffer != null) {
+            buffer.withJavaBuffer { javaBuffer ->
+                when (javaBuffer) {
+                    is ByteBuffer -> GL.glTexImage2D(
+                        target,
+                        level,
+                        internalFormat,
+                        width,
+                        height,
+                        border,
+                        format,
+                        type,
+                        javaBuffer
+                    )
 
-                is ShortBuffer -> GL.glTexImage2D(
-                    target,
-                    level,
-                    internalFormat,
-                    width,
-                    height,
-                    border,
-                    format,
-                    type,
-                    javaBuffer
-                )
+                    is ShortBuffer -> GL.glTexImage2D(
+                        target,
+                        level,
+                        internalFormat,
+                        width,
+                        height,
+                        border,
+                        format,
+                        type,
+                        javaBuffer
+                    )
 
-                is IntBuffer -> GL.glTexImage2D(
-                    target,
-                    level,
-                    internalFormat,
-                    width,
-                    height,
-                    border,
-                    format,
-                    type,
-                    javaBuffer
-                )
+                    is IntBuffer -> GL.glTexImage2D(
+                        target,
+                        level,
+                        internalFormat,
+                        width,
+                        height,
+                        border,
+                        format,
+                        type,
+                        javaBuffer
+                    )
 
-                is FloatBuffer -> GL.glTexImage2D(
-                    target,
-                    level,
-                    internalFormat,
-                    width,
-                    height,
-                    border,
-                    format,
-                    type,
-                    javaBuffer
-                )
+                    is FloatBuffer -> GL.glTexImage2D(
+                        target,
+                        level,
+                        internalFormat,
+                        width,
+                        height,
+                        border,
+                        format,
+                        type,
+                        javaBuffer
+                    )
 
-                is DoubleBuffer -> GL.glTexImage2D(
-                    target,
-                    level,
-                    internalFormat,
-                    width,
-                    height,
-                    border,
-                    format,
-                    type,
-                    javaBuffer
-                )
+                    is DoubleBuffer -> GL.glTexImage2D(
+                        target,
+                        level,
+                        internalFormat,
+                        width,
+                        height,
+                        border,
+                        format,
+                        type,
+                        javaBuffer
+                    )
 
-                else -> throw IllegalArgumentException("unknown buffer type ${javaBuffer.javaClass}")
+                    else -> throw IllegalArgumentException("unknown buffer type ${javaBuffer.javaClass}")
+                }
             }
+        } else {
+            TODO()
+//            GL.glTexImage2D(
+//                target,
+//                level,
+//                internalFormat,
+//                width,
+//                height,
+//                border,
+//                format,
+//                type,
+//                null
+//            )
         }
     }
 
@@ -278,42 +293,55 @@ object KglLwjgl : Kgl {
 
     override fun uniform1f(location: UniformLocation, f: Float) =
         GL.glUniform1f(location, f)
+
     override fun uniform1fv(location: UniformLocation, value: FloatArray) =
         GL.glUniform1fv(location, value)
+
     override fun uniform1i(location: UniformLocation, i: Int) =
         GL.glUniform1i(location, i)
+
     override fun uniform1iv(location: UniformLocation, value: IntArray) =
         GL.glUniform1iv(location, value)
 
     override fun uniform2f(location: UniformLocation, x: Float, y: Float) =
         GL.glUniform2f(location, x, y)
+
     override fun uniform2fv(location: UniformLocation, value: FloatArray) =
         GL.glUniform2fv(location, value)
+
     override fun uniform2i(location: UniformLocation, x: Int, y: Int) =
         GL.glUniform2i(location, x, y)
+
     override fun uniform2iv(location: UniformLocation, value: IntArray) =
         GL.glUniform2iv(location, value)
 
     override fun uniform3f(location: UniformLocation, x: Float, y: Float, z: Float) =
         GL.glUniform3f(location, x, y, z)
+
     override fun uniform3fv(location: UniformLocation, value: FloatArray) =
         GL.glUniform3fv(location, value)
+
     override fun uniform3i(location: UniformLocation, x: Int, y: Int, z: Int) =
         GL.glUniform3i(location, x, y, z)
+
     override fun uniform3iv(location: UniformLocation, value: IntArray) =
         GL.glUniform3iv(location, value)
 
     override fun uniform4f(location: UniformLocation, x: Float, y: Float, z: Float, w: Float) =
         GL.glUniform4f(location, x, y, z, w)
+
     override fun uniform4fv(location: UniformLocation, value: FloatArray) =
         GL.glUniform4fv(location, value)
+
     override fun uniform4i(location: UniformLocation, x: Int, y: Int, z: Int, w: Int) =
         GL.glUniform4i(location, x, y, z, w)
+
     override fun uniform4iv(location: UniformLocation, value: IntArray) =
         GL.glUniform4iv(location, value)
 
     override fun uniformMatrix3fv(location: UniformLocation, transpose: Boolean, value: FloatArray) =
         GL.glUniformMatrix3fv(location, transpose, value)
+
     override fun uniformMatrix4fv(location: UniformLocation, transpose: Boolean, value: FloatArray) =
         GL.glUniformMatrix4fv(location, transpose, value)
 
