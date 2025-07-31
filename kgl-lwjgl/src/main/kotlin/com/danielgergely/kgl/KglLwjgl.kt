@@ -1,12 +1,13 @@
 package com.danielgergely.kgl
 
+import org.lwjgl.opengl.GL30
 import org.lwjgl.opengl.GL33
 import java.nio.*
 import java.nio.ByteBuffer
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
 
-typealias GL = GL33
+typealias GL = GL30
 
 object KglLwjgl : Kgl {
 
@@ -272,18 +273,17 @@ object KglLwjgl : Kgl {
                 }
             }
         } else {
-            TODO()
-//            GL.glTexImage2D(
-//                target,
-//                level,
-//                internalFormat,
-//                width,
-//                height,
-//                border,
-//                format,
-//                type,
-//                null
-//            )
+            GL.glTexImage2D(
+                target,
+                level,
+                internalFormat,
+                width,
+                height,
+                border,
+                format,
+                type,
+                null as IntBuffer?
+            )
         }
     }
 
