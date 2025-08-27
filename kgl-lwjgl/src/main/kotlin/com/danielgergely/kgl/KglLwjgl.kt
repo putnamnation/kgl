@@ -272,18 +272,17 @@ object KglLwjgl : Kgl {
                 }
             }
         } else {
-            TODO()
-//            GL.glTexImage2D(
-//                target,
-//                level,
-//                internalFormat,
-//                width,
-//                height,
-//                border,
-//                format,
-//                type,
-//                null
-//            )
+            GL.glTexImage2D(
+                target,
+                level,
+                internalFormat,
+                width,
+                height,
+                border,
+                format,
+                type,
+                null as ByteBuffer?
+            )
         }
     }
 
