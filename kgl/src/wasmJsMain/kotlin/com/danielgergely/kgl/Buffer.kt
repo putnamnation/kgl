@@ -48,7 +48,8 @@ public actual class FloatBuffer actual constructor(buffer: FloatArray) : Buffer(
     public actual operator fun get(pos: Int): Float = floatBuffer[pos]
 
     override fun getWasmJsBufferWithOffset(): ArrayBufferView {
-        return floatBuffer.sliceArray(position..floatBuffer.size).toFloat32Array()
+        return floatBuffer.copyOfRange(position, floatBuffer.size).toFloat32Array()
+//        return floatBuffer.sliceArray(position..floatBuffer.size).toFloat32Array()
     }
 }
 
@@ -96,7 +97,7 @@ public actual class ByteBuffer actual constructor(buffer: ByteArray) : Buffer() 
     }
 
     override fun getWasmJsBufferWithOffset(): ArrayBufferView {
-        return buffer.sliceArray(position..buffer.size).toInt8Array()
+        return buffer.copyOfRange(position, buffer.size).toInt8Array()
     }
 }
 
@@ -143,6 +144,6 @@ public actual class IntBuffer public actual constructor(buffer: IntArray) : Buff
     }
 
     override fun getWasmJsBufferWithOffset(): ArrayBufferView {
-        return buffer.sliceArray(position..buffer.size).toInt32Array()
+        return buffer.copyOfRange(position, buffer.size).toInt32Array()
     }
 }
