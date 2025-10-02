@@ -2,7 +2,8 @@ package com.danielgergely.kgl
 
 import org.khronos.webgl.*
 
-public class KglWasmJs(private val gl: WebGLRenderingContext) : Kgl {
+@OptIn(ExperimentalWasmJsInterop::class)
+public class KglWasmJs(private val gl: WebGLRenderingContext, public val canvasName: String) : Kgl {
 
     public override fun createShader(type: Int): Shader? = gl.createShader(type)
 
