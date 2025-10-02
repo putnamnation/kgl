@@ -234,11 +234,16 @@ class KglJogl(private val gl: GL) : Kgl {
         border: Int,
         format: Int,
         type: Int,
-        buffer: Buffer
+        buffer: Buffer?
     ) {
-        buffer.withJavaBuffer { javaBuffer ->
-            gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, javaBuffer)
+        if (buffer == null) {
+            gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, null)
+        } else {
+            buffer.withJavaBuffer { javaBuffer ->
+                gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, javaBuffer)
+            }
         }
+
     }
 
     override fun activeTexture(texture: Int) = gl.glActiveTexture(texture)
