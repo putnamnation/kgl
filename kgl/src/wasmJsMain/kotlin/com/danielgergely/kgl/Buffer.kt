@@ -1,9 +1,13 @@
 package com.danielgergely.kgl
 
 import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.Uint8ClampedArray
 import org.khronos.webgl.toFloat32Array
 import org.khronos.webgl.toInt32Array
 import org.khronos.webgl.toInt8Array
+import org.khronos.webgl.toUint8Array
+import kotlin.collections.toTypedArray
 
 public actual abstract class Buffer {
     public abstract fun getWasmJsBufferWithOffset(): ArrayBufferView
@@ -96,8 +100,9 @@ public actual class ByteBuffer actual constructor(buffer: ByteArray) : Buffer() 
         return buffer[pos]
     }
 
+    @OptIn(ExperimentalWasmJsInterop::class, ExperimentalUnsignedTypes::class)
     override fun getWasmJsBufferWithOffset(): ArrayBufferView {
-        return buffer.copyOfRange(position, buffer.size).toInt8Array()
+        return buffer.copyOfRange(position, buffer.size).toUByteArray().toUint8Array()
     }
 }
 
