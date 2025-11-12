@@ -198,6 +198,7 @@ object KglAndroid : Kgl {
             GL.glTexImage2D(target, level, internalFormat, width, height, border, format, type, null)
         } else {
             buffer.withJavaBuffer { javaBuffer ->
+//                GL.glCopyTexImage2D()
                 GL.glTexImage2D(target, level, internalFormat, width, height, border, format, type, javaBuffer)
             }
         }
