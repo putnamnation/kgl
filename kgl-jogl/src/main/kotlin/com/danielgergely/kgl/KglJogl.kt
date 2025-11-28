@@ -144,44 +144,57 @@ class KglJogl(private val gl: GL) : Kgl {
 
     override fun uniform1f(location: UniformLocation, f: Float) =
         gl.glUniform1f(location, f)
+
     override fun uniform1fv(location: UniformLocation, value: FloatArray) =
         gl.glUniform1fv(location, value.vSize(1), value, 0)
+
     override fun uniform1i(location: UniformLocation, i: Int) =
         gl.glUniform1i(location, i)
+
     override fun uniform1iv(location: UniformLocation, value: IntArray) =
         gl.glUniform1iv(location, value.vSize(1), value, 0)
 
     override fun uniform2f(location: UniformLocation, x: Float, y: Float) =
         gl.glUniform2f(location, x, y)
+
     override fun uniform2fv(location: UniformLocation, value: FloatArray) =
         gl.glUniform2fv(location, value.vSize(2), value, 0)
+
     override fun uniform2i(location: UniformLocation, x: Int, y: Int) =
         gl.glUniform2i(location, x, y)
+
     override fun uniform2iv(location: UniformLocation, value: IntArray) =
         gl.glUniform2iv(location, value.vSize(2), value, 0)
 
     override fun uniform3f(location: UniformLocation, x: Float, y: Float, z: Float) =
         gl.glUniform3f(location, x, y, z)
+
     override fun uniform3fv(location: UniformLocation, value: FloatArray) =
         gl.glUniform3fv(location, value.vSize(3), value, 0)
+
     override fun uniform3i(location: UniformLocation, x: Int, y: Int, z: Int) =
         gl.glUniform3i(location, x, y, z)
+
     override fun uniform3iv(location: UniformLocation, value: IntArray) =
         gl.glUniform3iv(location, value.vSize(3), value, 0)
 
     override fun uniform4f(location: UniformLocation, x: Float, y: Float, z: Float, w: Float) =
         gl.glUniform4f(location, x, y, z, w)
+
     override fun uniform4fv(location: UniformLocation, value: FloatArray) =
         gl.glUniform4fv(location, value.vSize(4), value, 0)
+
     override fun uniform4i(location: UniformLocation, x: Int, y: Int, z: Int, w: Int) =
         gl.glUniform4i(location, x, y, z, w)
+
     override fun uniform4iv(location: UniformLocation, value: IntArray) =
         gl.glUniform4iv(location, value.vSize(4), value, 0)
 
     override fun uniformMatrix3fv(location: UniformLocation, transpose: Boolean, value: FloatArray) =
-        gl.glUniformMatrix3fv(location, value.vSize(3*3), transpose, value, 0)
+        gl.glUniformMatrix3fv(location, value.vSize(3 * 3), transpose, value, 0)
+
     override fun uniformMatrix4fv(location: UniformLocation, transpose: Boolean, value: FloatArray) =
-        gl.glUniformMatrix4fv(location, value.vSize(4*4), transpose, value, 0)
+        gl.glUniformMatrix4fv(location, value.vSize(4 * 4), transpose, value, 0)
 
     override fun blendFunc(sFactor: Int, dFactor: Int) = gl.glBlendFunc(sFactor, dFactor)
 
@@ -237,7 +250,7 @@ class KglJogl(private val gl: GL) : Kgl {
         buffer: Buffer?
     ) {
         if (buffer == null) {
-            gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, null)
+            gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, null as IntBuffer?)
         } else {
             buffer.withJavaBuffer { javaBuffer ->
                 gl.glTexImage2D(target, level, internalFormat, width, height, border, format, type, javaBuffer)
